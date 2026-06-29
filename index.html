@@ -1211,7 +1211,7 @@ footer {
             
             <div class="hero-visual">
                 <div class="glass-panel case-image-card" style="padding: 0; overflow: hidden; margin: 0;">
-                    <img src="img/Hero.jpg" alt="Herói" class="img-fluid" style="width: 100%; height: auto; display: block; border-radius: 0;" width="800" height="533" fetchpriority="high">
+                    <img srcset="img/Hero-mobile.jpg 634w, img/Hero.jpg 800w" sizes="(max-width: 768px) 634px, 800px" src="img/Hero.jpg" alt="Herói" class="img-fluid" style="width: 100%; height: auto; display: block; border-radius: 0;" width="800" height="533" fetchpriority="high">
                 </div>
             </div>
 
@@ -1455,7 +1455,7 @@ footer {
                 </div>
 
                 <div class="glass-panel case-image-card mt-4">
-                    <img src="img/funil.jpg" alt="Funil de Vendas do iFood" class="img-fluid rounded" width="800" height="328" loading="lazy" style="height: auto;">
+                    <img srcset="img/funil-mobile.jpg 634w, img/funil.jpg 800w" sizes="(max-width: 768px) 634px, 800px" src="img/funil.jpg" alt="Funil de Vendas do iFood" class="img-fluid rounded" width="800" height="328" loading="lazy" style="height: auto;">
                 </div>
 
                 <div class="grid grid-3 case-metrics mt-4">
@@ -1656,11 +1656,8 @@ footer {
     </footer>
 
     <!-- Init Icons and JS -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        lucide.createIcons();
-    </script>
-    <script src="js/main.js"></script>
+    <script defer src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="js/main.js"></script>
 
     <!-- Meta Pixel Code -->
     <script>
