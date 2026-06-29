@@ -481,32 +481,41 @@
     <script defer src="https://unpkg.com/lucide@latest"></script>
     <script defer src="js/main.js"></script>
 
-    <!-- Meta Pixel Code -->
+    <!-- Deferred Tracking Pixels (non-blocking) -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '26082244911438925');
-    fbq('track', 'PageView');
+    (function(){
+      // Queue fbq calls immediately so any future fbq('track', ...) works before the SDK loads
+      window.fbq||(window.fbq=function(){window.fbq.callMethod?window.fbq.callMethod.apply(window.fbq,arguments):window.fbq.queue.push(arguments)},window.fbq.queue=[],window.fbq.push=window.fbq,window.fbq.loaded=!1,window.fbq.version='2.0',window._fbq=window.fbq);
+
+      // Utmify pixel ID (must be set before script loads)
+      window.pixelId="6a42797fb9bf3883e72f2636";
+
+      function loadTrackers(){
+        // Meta Pixel SDK
+        var f=document.createElement('script');
+        f.src='https://connect.facebook.net/en_US/fbevents.js';
+        f.async=!0;
+        document.head.appendChild(f);
+        fbq('init','26082244911438925');
+        fbq('track','PageView');
+
+        // Utmify
+        var u=document.createElement('script');
+        u.src='https://cdn.utmify.com.br/scripts/pixel/pixel.js';
+        u.async=!0;
+        document.head.appendChild(u);
+      }
+
+      // Defer loading until browser is idle, fallback to window.load + 50ms
+      if('requestIdleCallback' in window){
+        requestIdleCallback(loadTrackers,{timeout:3500});
+      }else{
+        window.addEventListener('load',function(){setTimeout(loadTrackers,50)});
+      }
+    })();
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=26082244911438925&ev=PageView&noscript=1"
     /></noscript>
-    <!-- End Meta Pixel Code -->
-
-    <!-- Utmify script -->
-    <script>
-      window.pixelId = "6a42797fb9bf3883e72f2636";
-      var a = document.createElement("script");
-      a.setAttribute("async", "");
-      a.setAttribute("defer", "");
-      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-      document.head.appendChild(a);
-    </script>
 </body>
 </html>
